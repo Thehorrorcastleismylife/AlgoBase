@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Функции в C++</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../images/logo-no-bg.png" type="../image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        h1, h2 {
+            color: #333333;
+            font-weight: 600;
+            align-self: center;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navBar">
+        <a href="../index.html"><img src="../Images/logo-no-bg.png" width="150" height="150"></a>
+        <div style="background-color: white; border-radius: 10px; padding: 5px 10px; display: flex; align-items: center; gap: 10px;">
+                <img src="../Images/Search.png" width="50" height="50" class="inline">
+                <span>Здесь есть все, что ты хочешь</span>
+            </div>
+        <button class="place-self-end">
+            <img src="../Images/user.png" width="100" height="100"> 
+        </button>
+    </nav>
+
+    <div style="padding: 20px; max-width: 140vh; margin: auto; font-size: 24px; gap: 6px; display: flex; flex-direction: column;">
+        <section>
+            <h2>1. Понятие функции в алгоритмизации</h2>
+            <p>В любом алгоритме часто встречаются повторяющиеся действия. <strong>Функция</strong> — это логически обособленный блок кода, имеющий имя, который можно многократно вызывать из разных частей программы. Функции позволяют:</p>
+            <ul>
+                <li>избежать дублирования кода (DRY-принцип: Don't Repeat Yourself);</li>
+                <li>разбить сложную задачу на мелкие подзадачи (модульность);</li>
+                <li>упростить тестирование и отладку;</li>
+                <li>повысить читаемость программы.</li>
+            </ul>
+            <p>В C++ каждая программа обязательно содержит функцию <code>main()</code> — точку входа. Все остальные функции создаются программистом или берутся из стандартных библиотек.</p>
+        </section>
+
+        <section>
+            <h2>2. Определение и вызов функции. Синтаксис</h2>
+            <p><strong>Общая форма определения функции:</strong></p>
+            <pre>
+тип_возвращаемого_значения имя_функции(список_параметров) {
+    // тело функции
+    return значение;   // если тип_возврата не void
+}
+            </pre>
+            <ul>
+                <li><strong>тип_возвращаемого_значения</strong> — тип данных, который функция возвращает (<code>int</code>, <code>double</code>, <code>bool</code>, <code>void</code> и т.д.). Если функция не возвращает значение, указывается <code>void</code>.</li>
+                <li><strong>имя_функции</strong> — идентификатор, по которому вызывается функция.</li>
+                <li><strong>список_параметров</strong> — перечень переменных (с типами), принимающих входные данные. Может быть пустым (<code>()</code> или <code>(void)</code>).</li>
+                <li><strong>тело функции</strong> — блок операторов в фигурных скобках.</li>
+                <li><strong>return</strong> — оператор, завершающий функцию и возвращающий значение (если тип не <code>void</code>).</li>
+            </ul>
+            <p><strong>Пример простейшей функции:</strong></p>
+            <pre>
+// Функция сложения двух целых чисел
+int sum(int a, int b) {
+    return a + b;
+}
+            </pre>
+            <p><strong>Вызов функции:</strong></p>
+            <pre>
+#include &lt;iostream&gt;
+
+int sum(int a, int b);   // объявление (прототип)
+
+int main() {
+    int result = sum(5, 3);   // вызов функции
+    std::cout &lt;&lt; "Сумма = " &lt;&lt; result &lt;&lt; std::endl;
+    return 0;
+}
+
+int sum(int a, int b) {       // определение
+    return a + b;
+}
+            </pre>
+            <p>Прототип (объявление) функции сообщает компилятору о её существовании до фактического определения. Это позволяет вызывать функцию до её реализации.</p>
+        </section>
+
+        <section>
+            <h2>3. Параметры и аргументы. Способы передачи</h2>
+            <p>Параметры — это переменные в заголовке функции. Аргументы — конкретные значения, передаваемые при вызове.</p>
+            <p>В C++ существуют три основных способа передачи параметров:</p>
+
+            <h3>3.1. Передача по значению (по умолчанию)</h3>
+            <p>Функция получает <strong>копию</strong> аргумента. Изменения параметра внутри функции не влияют на исходную переменную.</p>
+            <pre>
+void changeValue(int x) {
+    x = 100;   // меняется копия
+}
+
+int main() {
+    int a = 5;
+    changeValue(a);
+    std::cout &lt;&lt; a;   // выведет 5, а не 100
+}
+            </pre>
+
+            <h3>3.2. Передача по ссылке (<code>&amp;</code>)</h3>
+            <p>Параметр становится псевдонимом переданной переменной. Изменения внутри функции отражаются на оригинале.</p>
+            <pre>
+void swap(int &amp;x, int &amp;y) {
+    int temp = x;
+    x = y;
+    y = temp;
+}
+
+int main() {
+    int a = 3, b = 7;
+    swap(a, b);
+    std::cout &lt;&lt; a &lt;&lt; " " &lt;&lt; b;   // 7 3
+}
+            </pre>
+
+            <h3>3.3. Передача по указателю (<code>*</code>)</h3>
+            <p>Функция получает адрес переменной. Через разыменование можно изменить оригинал. В современных программах предпочтительнее ссылки.</p>
+            <pre>
+void setToZero(int *p) {
+    if (p != nullptr) *p = 0;
+}
+
+int main() {
+    int value = 42;
+    setToZero(&amp;value);
+    std::cout &lt;&lt; value;   // 0
+}
+            </pre>
+            <p><strong>Рекомендация:</strong> Для входных параметров, которые не нужно изменять, используйте передачу по значению или константную ссылку (<code>const T&amp;</code>). Для изменения — ссылку.</p>
+        </section>
+
+        <section>
+            <h2>4. Возврат значений. Оператор <code>return</code></h2>
+            <p>Оператор <code>return</code> завершает выполнение функции и возвращает значение вызывающему коду. Тип возвращаемого значения должен соответствовать объявленному типу функции.</p>
+            <p><strong>Примеры:</strong></p>
+            <pre>
+int max(int a, int b) {
+    if (a > b)
+        return a;
+    else
+        return b;
+}
+
+// Функция может иметь несколько return, но только один из них сработает.
+            </pre>
+            <p>Для функций <code>void</code> оператор <code>return;</code> не обязателен, но может использоваться для досрочного выхода.</p>
+            <pre>
+void printPositive(int n) {
+    if (n &lt;= 0)
+        return;   // досрочный выход
+    std::cout &lt;&lt; n &lt;&lt; std::endl;
+}
+            </pre>
+            <p><strong>Важно:</strong> Нельзя вернуть ссылку на локальную переменную (она разрушится после выхода из функции).</p>
+        </section>
+
+        <section>
+            <h2>5. Аргументы по умолчанию</h2>
+            <p>C++ позволяет задавать параметрам значения по умолчанию. Если при вызове аргумент не указан, используется значение по умолчанию.</p>
+            <p><strong>Правила:</strong> параметры со значениями по умолчанию должны располагаться в конце списка параметров.</p>
+            <pre>
+void greet(std::string name, std::string prefix = "Здравствуйте") {
+    std::cout &lt;&lt; prefix &lt;&lt; ", " &lt;&lt; name &lt;&lt; "!" &lt;&lt; std::endl;
+}
+
+int main() {
+    greet("Анна");                 // "Здравствуйте, Анна!"
+    greet("Иван", "Привет");      // "Привет, Иван!"
+}
+            </pre>
+        </section>
+
+        <section>
+            <h2>6. Перегрузка функций (Function Overloading)</h2>
+            <p>В C++ можно определять несколько функций с одним именем, но разными параметрами (количество, типы или порядок). Компилятор сам выбирает нужную версию на основе переданных аргументов.</p>
+            <p><strong>Пример перегрузки:</strong></p>
+            <pre>
+#include &lt;iostream&gt;
+
+int multiply(int a, int b) {
+    return a * b;
+}
+
+double multiply(double a, double b) {
+    return a * b;
+}
+
+int multiply(int a, int b, int c) {
+    return a * b * c;
+}
+
+int main() {
+    std::cout &lt;&lt; multiply(2, 3) &lt;&lt; std::endl;        // 6 (int, int)
+    std::cout &lt;&lt; multiply(2.5, 3.1) &lt;&lt; std::endl;  // 7.75 (double, double)
+    std::cout &lt;&lt; multiply(2, 3, 4) &lt;&lt; std::endl;    // 24 (три параметра)
+}
+            </pre>
+            <p>Перегрузка не может отличаться только типом возвращаемого значения.</p>
+        </section>
+
+        <section>
+            <h2>7. Рекурсивные функции</h2>
+            <p><strong>Рекурсия</strong> — это вызов функцией самой себя. Рекурсивные функции позволяют элегантно решать задачи, которые сводятся к аналогичным подзадачам (вычисление факториала, обход деревьев, алгоритм Евклида и др.).</p>
+            <p><strong>Обязательные компоненты рекурсии:</strong></p>
+            <ul>
+                <li>Базовый случай (условие выхода).</li>
+                <li>Рекурсивный шаг (вызов функции с изменёнными параметрами).</li>
+            </ul>
+            <p><strong>Пример: вычисление факториала.</strong></p>
+            <pre>
+int factorial(int n) {
+    if (n &lt;= 1)       // базовый случай
+        return 1;
+    else
+        return n * factorial(n - 1);   // рекурсивный вызов
+}
+            </pre>
+            <p>Каждый рекурсивный вызов создаёт новый стековый фрейм. Глубокая рекурсия может привести к переполнению стека. В таких случаях используют итеративные алгоритмы.</p>
+            <p><strong>Пример: числа Фибоначчи (рекурсивная версия неэффективна).</strong></p>
+            <pre>
+int fib(int n) {
+    if (n &lt;= 1) return n;
+    return fib(n - 1) + fib(n - 2);
+}
+            </pre>
+            <p>Для улучшения производительности используют мемоизацию или итеративный подход.</p>
+        </section>
+
+        <section>
+            <h2>8. Inline-функции</h2>
+            <p><code>inline</code> — это подсказка компилятору: попытаться вставить код функции непосредственно в место вызова, вместо создания вызова. Это может увеличить производительность для коротких функций, но увеличивает размер кода.</p>
+            <pre>
+inline int square(int x) {
+    return x * x;
+}
+            </pre>
+            <p>Современные компиляторы часто игнорируют <code>inline</code> и сами решают, что оптимизировать. Используйте <code>inline</code> для очень маленьких функций в заголовочных файлах.</p>
+        </section>
+
+        <section>
+            <h2>9. Лямбда-функции (анонимные функции) — краткое знакомство</h2>
+            <p>Начиная с C++11, появились <strong>лямбда-выражения</strong> — локальные функции, которые можно определить прямо в месте использования. Они удобны для передачи в алгоритмы стандартной библиотеки.</p>
+            <p><strong>Минимальный синтаксис:</strong></p>
+            <pre>
+[capture](parameters) -> return_type { body }
+            </pre>
+            <p><strong>Пример:</strong></p>
+            <pre>
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+int main() {
+    std::vector&lt;int&gt; v = {1, 2, 3, 4, 5};
+    // лямбда, возвращающая true для четных чисел
+    auto isEven = [](int n) { return n % 2 == 0; };
+    int count = std::count_if(v.begin(), v.end(), isEven);
+    std::cout &lt;&lt; "Четных чисел: " &lt;&lt; count &lt;&lt; std::endl;
+}
+            </pre>
+            <p>Лямбды подробно изучаются после освоения основ классов и алгоритмов STL.</p>
+        </section>
+
+        <section>
+            <h2>10. Область видимости переменных. Локальные и глобальные переменные</h2>
+            <p>Переменные, объявленные внутри функции, называются <strong>локальными</strong>. Они создаются при входе в функцию и уничтожаются при выходе. Глобальные переменные объявляются вне всех функций и видны во всей программе (что часто считается плохим стилем).</p>
+            <pre>
+#include &lt;iostream&gt;
+
+int globalVar = 100;   // глобальная переменная
+
+void func() {
+    int localVar = 10; // локальная переменная
+    std::cout &lt;&lt; "globalVar = " &lt;&lt; globalVar &lt;&lt; std::endl;
+    // localVar недоступна за пределами func
+}
+            </pre>
+            <p><strong>Статические локальные переменные (<code>static</code>)</strong> сохраняют своё значение между вызовами функции.</p>
+            <pre>
+void counter() {
+    static int calls = 0;
+    calls++;
+    std::cout &lt;&lt; "Функция вызвана " &lt;&lt; calls &lt;&lt; " раз" &lt;&lt; std::endl;
+}
+            </pre>
+        </section>
+
+        <section>
+            <h2>11. Функции и массивы. Передача массивов в функцию</h2>
+            <p>При передаче массива в функцию он «вырождается» в указатель на первый элемент. Размер массива нужно передавать отдельно.</p>
+            <pre>
+void printArray(int arr[], int size) {
+    for (int i = 0; i &lt; size; ++i) {
+        std::cout &lt;&lt; arr[i] &lt;&lt; " ";
+    }
+}
+
+int main() {
+    int data[] = {10, 20, 30, 40};
+    int size = sizeof(data) / sizeof(data[0]);
+    printArray(data, size);
+}
+            </pre>
+            <p>Для многомерных массивов необходимо указывать размерность, кроме первой.</p>
+        </section>
+
+        <section>
+            <h2>12. Стандартные математические функции (библиотека &lt;cmath&gt;)</h2>
+            <p>Ранее мы уже касались математических функций. Они также являются примерами готовых функций:</p>
+            <pre>
+#include &lt;cmath&gt;
+double x = 4.0;
+double root = sqrt(x);   // 2.0
+double power = pow(2, 3); // 8.0
+            </pre>
+            <p>Все они следуют тем же правилам: передача параметров, возврат значения.</p>
+        </section>
+
+        <section>
+            <h2>13. Прототипы функций и раздельная компиляция</h2>
+            <p>В реальных проектах функции часто объявляют в заголовочных файлах (<code>.h</code> или <code>.hpp</code>), а определяют в файлах реализации (<code>.cpp</code>). Это позволяет компилировать части программы отдельно.</p>
+            <p><strong>Пример структуры:</strong></p>
+            <ul>
+                <li><code>math_utils.h</code> — содержит прототипы функций.</li>
+                <li><code>math_utils.cpp</code> — определения функций.</li>
+                <li><code>main.cpp</code> — использует функции, подключая заголовок.</li>
+            </ul>
+            <pre>
+// math_utils.h
+#ifndef MATH_UTILS_H
+#define MATH_UTILS_H
+int add(int a, int b);
+#endif
+
+// math_utils.cpp
+#include "math_utils.h"
+int add(int a, int b) { return a + b; }
+
+// main.cpp
+#include "math_utils.h"
+#include &lt;iostream&gt;
+int main() { std::cout &lt;&lt; add(2,3); }
+            </pre>
+        </section>
+
+        <section>
+            <h2>14. Типичные ошибки при работе с функциями</h2>
+            <ul>
+                <li><strong>Несоответствие типа возврата:</strong> объявлено <code>int</code>, а возвращается <code>double</code> — происходит усечение или ошибка.</li>
+                <li><strong>Забыт оператор <code>return</code></strong> в не-void функции — неопределённое поведение.</li>
+                <li><strong>Возврат ссылки на локальную переменную</strong> — висячая ссылка.</li>
+                <li><strong>Рекурсия без базового случая</strong> — бесконечная рекурсия, переполнение стека.</li>
+                <li><strong>Передача массива без указания размера</strong> — потеря информации о длине.</li>
+                <li><strong>Конфликт имён при перегрузке</strong> — компилятор не может выбрать подходящую версию.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>15. Практический пример: библиотека геометрических функций</h2>
+            <p>Создадим несколько полезных функций для работы с геометрическими фигурами.</p>
+            <pre>
+#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+
+const double PI = 3.141592653589793;
+
+// Площадь круга
+double circleArea(double radius) {
+    return PI * radius * radius;
+}
+
+// Длина окружности
+double circleCircumference(double radius) {
+    return 2 * PI * radius;
+}
+
+// Расстояние между двумя точками на плоскости
+double distance(double x1, double y1, double x2, double y2) {
+    return std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2));
+}
+
+int main() {
+    double r = 5.0;
+    std::cout &lt;&lt; "Площадь круга: " &lt;&lt; circleArea(r) &lt;&lt; std::endl;
+    std::cout &lt;&lt; "Расстояние между (0,0) и (3,4): " &lt;&lt; distance(0,0,3,4) &lt;&lt; std::endl;
+    return 0;
+}
+            </pre>
+            <p>Этот пример показывает, как функции инкапсулируют логику и могут быть переиспользованы.</p>
+        </section>
+    </div>
+
+
+    <div style='display: flex; flex-direction: row; gap: 10px; justify-content: space-between; padding: 20px; max-width: 140vh; margin: auto;'>
+        <button class="mainBtn" onclick="window.location.href='../lec/lect3.html';">предыдущая лекция</button>
+        <button class="mainBtn" onclick="window.location.href='../practics/pract4.html';">практика</button>
+    </div>
+
+
+</body>
+</html>

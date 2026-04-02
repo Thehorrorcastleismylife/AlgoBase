@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Циклы в C++</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../images/logo-no-bg.png" type="../image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        h1, h2 {
+            color: #333333;
+            font-weight: 600;
+            align-self: center;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navBar">
+        <a href="../index.html"><img src="../Images/logo-no-bg.png" width="150" height="150"></a>
+        <div style="background-color: white; border-radius: 10px; padding: 5px 10px; display: flex; align-items: center; gap: 10px;">
+                <img src="../Images/Search.png" width="50" height="50" class="inline">
+                <span>Здесь есть все, что ты хочешь</span>
+            </div>
+        <button class="place-self-end">
+            <img src="../Images/user.png" width="100" height="100"> 
+        </button>
+    </nav>
+
+    <div style="padding: 20px; max-width: 140vh; margin: auto; font-size: 24px; gap: 6px; display: flex; flex-direction: column;">
+        <h2>1. Понятие цикла в алгоритмах</h2>
+            <p><strong>Цикл</strong> — это управляющая конструкция, позволяющая многократно выполнять один и тот же блок операторов до тех пор, пока выполняется некоторое условие. Циклы являются основой для обработки массивов, организации ввода-вывода больших объёмов данных, реализации рекуррентных вычислений и многих других задач.</p>
+            <p>В языке C++ имеются три основных вида циклов:</p>
+            <ul>
+                <li><strong>Цикл <code>while</code></strong> — с предусловием.</li>
+                <li><strong>Цикл <code>do-while</code></strong> — с постусловием.</li>
+                <li><strong>Цикл <code>for</code></strong> — параметрический (со счётчиком).</li>
+            </ul>
+            <p>Кроме того, в стандарте C++11 появился диапазонный <code>for</code> (range-based for), упрощающий перебор коллекций.</p>
+            <p>Важнейшими понятиями, связанными с циклами, являются:</p>
+            <ul>
+                <li><strong>Итерация</strong> — однократное выполнение тела цикла.</li>
+                <li><strong>Счётчик цикла</strong> — переменная, управляющая числом повторений (особенно в циклах <code>for</code>).</li>
+                <li><strong>Условие продолжения</strong> — логическое выражение, определяющее, нужно ли выполнять очередную итерацию.</li>
+                <li><strong>Бесконечный цикл</strong> — цикл, условие которого всегда истинно (требует принудительного прерывания).</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>2. Цикл <code>while</code> (с предусловием)</h2>
+            <p>Цикл <code>while</code> проверяет условие <strong>до</strong> выполнения тела цикла. Если условие истинно — тело выполняется, после чего проверка повторяется. Если условие ложно изначально, тело не выполнится ни разу.</p>
+            <p><strong>Синтаксис:</strong></p>
+            <pre>
+while (условие) {
+    // тело цикла (один или несколько операторов)
+}
+            </pre>
+            <p><strong>Пример 1:</strong> вывод чисел от 1 до 5.</p>
+            <pre>
+int i = 1;
+while (i &lt;= 5) {
+    std::cout &lt;&lt; i &lt;&lt; " ";
+    ++i;
+}
+// Результат: 1 2 3 4 5
+            </pre>
+            <p><strong>Пример 2:</strong> суммирование вводимых чисел до тех пор, пока не будет введён ноль.</p>
+            <pre>
+int sum = 0, value = 0;
+std::cout &lt;&lt; "Введите числа (0 для завершения): ";
+std::cin &gt;&gt; value;
+while (value != 0) {
+    sum += value;
+    std::cin &gt;&gt; value;
+}
+std::cout &lt;&lt; "Сумма: " &lt;&lt; sum &lt;&lt; std::endl;
+            </pre>
+            <p><strong>Важно:</strong> в теле цикла необходимо изменять переменные, влияющие на условие, иначе возможен <strong>бесконечный цикл</strong>.</p>
+        </section>
+
+        <section>
+            <h2>3. Цикл <code>do-while</code> (с постусловием)</h2>
+            <p>Цикл <code>do-while</code> сначала выполняет тело цикла, а затем проверяет условие. Если условие истинно, цикл повторяется. Таким образом, тело цикла выполняется <strong>как минимум один раз</strong>, даже если условие ложно.</p>
+            <p><strong>Синтаксис:</strong></p>
+            <pre>
+do {
+    // тело цикла
+} while (условие);   // обратите внимание на точку с запятой
+            </pre>
+            <p><strong>Пример: меню программы</strong> (действие выполняется хотя бы раз).</p>
+            <pre>
+char choice;
+do {
+    std::cout &lt;&lt; "1. Начать игру\n";
+    std::cout &lt;&lt; "2. Загрузить\n";
+    std::cout &lt;&lt; "3. Выйти\n";
+    std::cout &lt;&lt; "Ваш выбор: ";
+    std::cin &gt;&gt; choice;
+    // обработка выбора...
+} while (choice != '3');
+            </pre>
+            <p><strong>Сравнение <code>while</code> и <code>do-while</code>:</strong> <code>do-while</code> гарантирует хотя бы одно выполнение, что удобно для диалоговых программ и ввода данных с проверкой.</p>
+        </section>
+
+        <section>
+            <h2>4. Цикл <code>for</code> (параметрический цикл)</h2>
+            <p>Цикл <code>for</code> используется, когда заранее известно или может быть вычислено количество итераций. Он объединяет инициализацию счётчика, условие продолжения и изменение счётчика в одной строке.</p>
+            <p><strong>Синтаксис:</strong></p>
+            <pre>
+for (инициализация; условие; выражение_шага) {
+    // тело цикла
+}
+            </pre>
+            <ul>
+                <li><strong>инициализация</strong> — выполняется один раз в начале цикла (обычно объявление и установка счётчика).</li>
+                <li><strong>условие</strong> — проверяется перед каждой итерацией; если <code>true</code> — тело выполняется.</li>
+                <li><strong>выражение_шага</strong> — выполняется после каждой итерации (обычно инкремент или декремент).</li>
+            </ul>
+            <p><strong>Пример 1:</strong> вывод чисел от 1 до 10.</p>
+            <pre>
+for (int i = 1; i &lt;= 10; ++i) {
+    std::cout &lt;&lt; i &lt;&lt; " ";
+}
+            </pre>
+            <p><strong>Пример 2:</strong> сумма элементов массива.</p>
+            <pre>
+int arr[] = {5, 8, 12, 3, 7};
+int sum = 0;
+for (int i = 0; i &lt; 5; ++i) {
+    sum += arr[i];
+}
+std::cout &lt;&lt; "Сумма = " &lt;&lt; sum;
+            </pre>
+            <p><strong>Гибкость <code>for</code>:</strong> любая из трёх частей может быть опущена. Например, бесконечный цикл:</p>
+            <pre>
+for (;;) {
+    // бесконечный цикл
+}
+            </pre>
+            <p>Также можно использовать несколько переменных, разделяя их запятыми:</p>
+            <pre>
+for (int i = 0, j = 10; i &lt; j; ++i, --j) {
+    std::cout &lt;&lt; i &lt;&lt; " " &lt;&lt; j &lt;&lt; std::endl;
+}
+            </pre>
+        </section>
+
+        <section>
+            <h2>5. Диапазонный <code>for</code> (range-based for, C++11 и новее)</h2>
+            <p>Для перебора всех элементов контейнера (массива, вектора, строки и т.д.) в C++11 был добавлен упрощённый цикл <code>for</code>. Он автоматически перебирает каждый элемент без необходимости использовать индексы.</p>
+            <p><strong>Синтаксис:</strong></p>
+            <pre>
+for (тип переменная : контейнер) {
+    // тело цикла
+}
+            </pre>
+            <p><strong>Пример:</strong> вывод массива.</p>
+            <pre>
+int numbers[] = {10, 20, 30, 40};
+for (int x : numbers) {
+    std::cout &lt;&lt; x &lt;&lt; " ";
+}
+// Вывод: 10 20 30 40
+            </pre>
+            <p>Для изменения элементов контейнера используйте ссылку:</p>
+            <pre>
+for (int &amp;x : numbers) {
+    x *= 2;   // удваиваем каждый элемент
+}
+            </pre>
+            <p>Диапазонный <code>for</code> особенно удобен при работе со стандартными библиотечными контейнерами (<code>std::vector</code>, <code>std::array</code>, <code>std::string</code>).</p>
+        </section>
+
+        <section>
+            <h2>6. Управление циклом: <code>break</code> и <code>continue</code></h2>
+            <p>Внутри любого цикла можно использовать два специальных оператора для изменения естественного хода выполнения:</p>
+            <ul>
+                <li><strong><code>break</code></strong> — немедленно завершает цикл (выход из самого внутреннего цикла).</li>
+                <li><strong><code>continue</code></strong> — пропускает оставшуюся часть текущей итерации и переходит к следующей итерации (проверке условия для <code>while</code>/<code>do-while</code> или к шагу в <code>for</code>).</li>
+            </ul>
+            <p><strong>Пример с <code>break</code>:</strong> поиск первого отрицательного числа.</p>
+            <pre>
+int data[] = {5, 2, -1, 8, 4};
+int index = -1;
+for (int i = 0; i &lt; 5; ++i) {
+    if (data[i] &lt; 0) {
+        index = i;
+        break;   // выход из цикла
+    }
+}
+if (index != -1) {
+    std::cout &lt;&lt; "Первое отрицательное число на позиции " &lt;&lt; index;
+}
+            </pre>
+            <p><strong>Пример с <code>continue</code>:</strong> вывод только чётных чисел от 1 до 10.</p>
+            <pre>
+for (int n = 1; n &lt;= 10; ++n) {
+    if (n % 2 != 0) {
+        continue;   // пропускаем нечётные
+    }
+    std::cout &lt;&lt; n &lt;&lt; " ";
+}
+// Вывод: 2 4 6 8 10
+            </pre>
+            <p><strong>Важно:</strong> чрезмерное использование <code>break</code> и <code>continue</code> может ухудшить читаемость кода. Старайтесь проектировать условия цикла так, чтобы они были естественными.</p>
+        </section>
+
+        <section>
+            <h2>7. Вложенные циклы</h2>
+            <p>Циклы могут содержать внутри себя другие циклы. Это широко используется при работе с многомерными массивами, генерации таблиц, реализации алгоритмов сортировки (например, пузырьковая сортировка).</p>
+            <p><strong>Пример:</strong> таблица умножения 5×5.</p>
+            <pre>
+for (int i = 1; i &lt;= 5; ++i) {
+    for (int j = 1; j &lt;= 5; ++j) {
+        std::cout &lt;&lt; i * j &lt;&lt; "\t";
+    }
+    std::cout &lt;&lt; std::endl;
+}
+            </pre>
+            <p>Вложенные циклы требуют внимания к сложности алгоритма: если внешний цикл выполняется N раз, а внутренний M раз, то общее количество итераций — N * M.</p>
+            <p><strong>Пример: поиск пар элементов, сумма которых равна заданному числу.</strong></p>
+            <pre>
+int arr[] = {1, 3, 5, 7, 9};
+int target = 10;
+for (int i = 0; i &lt; 5; ++i) {
+    for (int j = i + 1; j &lt; 5; ++j) {
+        if (arr[i] + arr[j] == target) {
+            std::cout &lt;&lt; "Пара: (" &lt;&lt; arr[i] &lt;&lt; ", " &lt;&lt; arr[j] &lt;&lt; ")" &lt;&lt; std::endl;
+        }
+    }
+}
+            </pre>
+        </section>
+
+        <section>
+            <h2>8. Бесконечные циклы и способы их предотвращения</h2>
+            <p>Бесконечный цикл возникает, если условие продолжения цикла никогда не становится ложным. Иногда бесконечные циклы используются намеренно (например, в серверных приложениях, в играх до выхода), но чаще это ошибка.</p>
+            <p><strong>Типичные ошибки:</strong></p>
+            <ul>
+                <li>Забыт инкремент счётчика: <code>while (i &lt; 10) { ... }</code> без <code>i++</code>.</li>
+                <li>Неправильное условие: <code>for (int i = 0; i &gt;= 0; ++i)</code>.</li>
+                <li>Сравнение чисел с плавающей точкой на точное равенство: <code>while (x != 1.0)</code> может никогда не стать ложным из-за погрешностей.</li>
+            </ul>
+            <p><strong>Пример корректного бесконечного цикла с выходом по <code>break</code>:</strong></p>
+            <pre>
+int password;
+while (true) {
+    std::cout &lt;&lt; "Введите пароль: ";
+    std::cin &gt;&gt; password;
+    if (password == 1234) {
+        std::cout &lt;&lt; "Доступ разрешён." &lt;&lt; std::endl;
+        break;
+    } else {
+        std::cout &lt;&lt; "Неверно, попробуйте снова." &lt;&lt; std::endl;
+    }
+}
+            </pre>
+            <p>Такой паттерн часто используется для ввода с проверкой, когда точное количество попыток неизвестно.</p>
+        </section>
+
+        <section>
+            <h2>9. Сравнение и выбор типа цикла</h2>
+            <table border="1" cellpadding="6" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Тип цикла</th>
+                        <th>Когда использовать</th>
+                        <th>Особенности</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>while</code></td>
+                        <td>Количество итераций неизвестно заранее, зависит от условия, может быть ноль итераций.</td>
+                        <td>Проверка перед выполнением.</td>
+                    </tr>
+                    <tr>
+                        <td><code>do-while</code></td>
+                        <td>Тело должно быть выполнено хотя бы один раз (например, меню, ввод с проверкой).</td>
+                        <td>Проверка после выполнения.</td>
+                    </tr>
+                    <tr>
+                        <td><code>for</code></td>
+                        <td>Чётко известен диапазон или количество повторений (работа со счётчиком, массивами).</td>
+                        <td>Компактная запись инициализации, условия и шага.</td>
+                    </tr>
+                    <tr>
+                        <td>диапазонный <code>for</code></td>
+                        <td>Перебор всех элементов контейнера без индексов.</td>
+                        <td>Удобен и безопасен, но не даёт доступа к индексу элемента.</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p>Выбор правильного типа цикла делает программу более понятной и менее подверженной ошибкам.</p>
+        </section>
+         <section>
+            <h2>11. Распространённые ошибки при работе с циклами</h2>
+            <ul>
+                <li><strong>Ошибка на единицу (off-by-one):</strong> неправильное граничное условие (например, <code>i &lt;= n</code> вместо <code>i &lt; n</code> при обходе массива).</li>
+                <li><strong>Использование неинициализированных переменных</strong> в условии цикла.</li>
+                <li><strong>Изменение переменной цикла внутри тела</strong> непредусмотренным образом (кроме специальных алгоритмов).</li>
+                <li><strong>Точка с запятой после <code>for(...)</code> или <code>while(...)</code></strong> — приводит к пустому телу цикла.</li>
+                <li><strong>Неучёт типа данных</strong> при больших значениях счётчика (переполнение).</li>
+                <li><strong>Побочные эффекты в условии цикла</strong> (например, вызов функции, изменяющей состояние).</li>
+            </ul>
+            <p>Всегда тестируйте циклы на граничных значениях: 0, 1, максимальное значение.</p>
+        </section>
+
+        <section>
+    </div>
+
+
+    <div style='display: flex; flex-direction: row; gap: 10px; justify-content: space-between; padding: 20px; max-width: 140vh; margin: auto;'>
+        <button class="mainBtn" onclick="window.location.href='../lec/lect2.html';">предыдущая лекция</button>
+        <button class="mainBtn" onclick="window.location.href='../practics/pract3.html';">практика</button>
+        <button class="mainBtn" onclick="window.location.href='../lec/lect4.html';">следующая лекция</button>
+    </div>
+
+</body>
+</html>

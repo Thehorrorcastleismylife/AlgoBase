@@ -13,14 +13,34 @@
     background-color: rgb(0, 160, 0);
     width: 20vh;
     height: 8vh;
+    color: white;
     font-size:x-large;
-    border-radius:1.6vh;
+    border-radius:5vh;
 }
 .navBar {
     background-color: rgb(255, 255, 255);
-    height: 10vh;
+    height: 12vh;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 2vw;
+    border-bottom: 1px solid ;
+    background-color: #cccccc;
+    margin: auto;
+}
+.image-container {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: space-between;
+    margin: 20px 0;
+        }
+.image-container img {
+    max-width: 400px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+.image-container p {
+    font-weight: 500;
+     min-width: 150px;
 }

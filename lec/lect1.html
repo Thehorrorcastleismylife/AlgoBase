@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Основы C++</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../images/logo-no-bg.png" type="../image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        h1, h2 {
+            color: #333333;
+            font-weight: 600;
+            align-self: center;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navBar">
+        <a href="../index.html"><img src="../Images/logo-no-bg.png" width="150" height="150"></a>
+        <div style="background-color: white; border-radius: 10px; padding: 5px 10px; display: flex; align-items: center; gap: 10px;">
+                <img src="../Images/Search.png" width="50" height="50" class="inline">
+                <span>Здесь есть все, что ты хочешь</span>
+            </div>
+        <button class="place-self-end">
+            <img src="../Images/user.png" width="100" height="100"> 
+        </button>
+    </nav>
+
+    <div style="padding: 20px; max-width: 140vh; margin: auto; font-size: 24px; gap: 6px; display: flex; flex-direction: column;">
+        <h1 style="align-self: center;"><b>Знакомство с C++ и алгоритмами</b></h1>
+        
+        <h2>Введение</h2>
+        <p>Алгоритм — это конечная последовательность чётко определённых инструкций, предназначенных для решения некоторой задачи.</p>
+        <p>Свойства корректного алгоритма:</p>
+        
+        <ul class="list-disc list-inside">
+            <li>Дискретность: Процесс разбит на отдельные шаги</li>
+            <li>Определённость: На каждом шаге однозначно определено следующее действие</li>
+            <li>Конечность: Алгоритм должен завершаться за конечное число шагов</li>
+            <li>Результативность: Алгоритм должен приводить к результату</li>
+            <li>Массовость: Алгоритм применим к целому классу однотипных задач</li>
+        </ul>
+
+        <p>Способы описания алгоритмов:</p>
+        <ul class="list-disc list-inside">
+            <li>Словесное описание</li>
+            <li>Блок-схемы (графическое представление)</li>
+            <li>Псевдокод</li>
+            <li>Реализация на языке программирования (C++, js, python и др.)</li>
+        </ul>
+
+        <div class="image-container">
+            <p><strong>Пример блок-схемы:</strong></p>
+            <img src="../Images/lec1/shema-3.jpg" alt="Блок-схема" style="width: 100%; max-width: 500px; height: auto;">
+        </div>
+        <div class="image-container">
+            <p><strong>Пример псевдокода:</strong></p>
+            <img src="../Images/lec1/firefox_z7aBJ3NPsL.png" alt="Псевдо-код" style="width: 100%; max-width: 500px; height: auto;">
+        </div>
+
+        <h2>Знакомство с языком C++</h2>
+            <p>C++ — язык программирования общего назначения, сочетающий высокую производительность и богатые возможности. Он позволяет:</p>
+            <ul>
+                <li>работать с памятью напрямую (через указатели);</li>
+                <li>использовать объектно-ориентированное, обобщённое и процедурное программирование;</li>
+                <li>создавать операционные системы, игры, драйверы, высоконагруженные сервисы.</li>
+            </ul>
+            <p>В рамках данной лекции мы рассмотрим <strong>процедурное программирование</strong> — основу для понимания алгоритмов.</p>
+        </section>
+
+        <section>
+            <h2>2. Первая программа на C++. Структура</h2>
+            <p>Классическая программа «Hello, World!» демонстрирует минимальную структуру.</p>
+            <pre>
+#include &lt;iostream&gt;   // директива препроцессора: подключение заголовочного файла для ввода/вывода
+
+int main() {          // главная функция — точка входа в программу
+    std::cout &lt;&lt; "Hello, World!" &lt;&lt; std::endl;
+    return 0;         // возврат 0 означает успешное завершение
+}
+            </pre>
+            <p><strong>Ключевые элементы:</strong></p>
+            <ul>
+                <li><code>#include</code> — подключение библиотек.</li>
+                <li><code>int main()</code> — функция, с которой начинается выполнение. Тип возврата <code>int</code> (целое число).</li>
+                <li><code>{ }</code> — тело функции.</li>
+                <li><code>std::cout</code> — объект для вывода на консоль.</li>
+                <li><code>return 0;</code> — завершение функции main и возврат кода ошибки (0 = успех).</li>
+            </ul>
+            <p>Каждый оператор в C++ заканчивается точкой с запятой <code>;</code>.</p>
+        </section>
+
+        <section>
+            <h2>3. Комментарии в коде</h2>
+            <p>Комментарии игнорируются компилятором и нужны для пояснения логики программы.</p>
+            <pre>
+// Однострочный комментарий
+
+/* 
+   Многострочный 
+   комментарий 
+*/
+            </pre>
+            <p>Полезно комментировать сложные участки алгоритма, но код должен быть понятен и без избыточных комментариев.</p>
+        </section>
+
+        <section>
+            <h2>4. Базовые типы данных</h2>
+            <p>Любая программа оперирует данными. В C++ каждая переменная имеет тип, определяющий размер памяти и допустимые операции.</p>
+            <table border="1" cellpadding="5" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Тип</th>
+                        <th>Назначение</th>
+                        <th>Пример диапазона (зависит от платформы)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>int</code></td><td>Целые числа</td><td>≈ -2·10⁹ … 2·10⁹</td></tr>
+                    <tr><td><code>double</code></td><td>Вещественные числа с двойной точностью</td><td>≈ ±1.7·10³⁰⁸</td></tr>
+                    <tr><td><code>float</code></td><td>Вещественные числа (меньшая точность)</td><td>≈ ±3.4·10³⁸</td></tr>
+                    <tr><td><code>char</code></td><td>Одиночный символ (1 байт)</td><td>'A', '7', '\n'</td></tr>
+                    <tr><td><code>bool</code></td><td>Логический тип</td><td><code>true</code> или <code>false</code></td></tr>
+                </tbody>
+            </table>
+            <p>Также существуют модификаторы <code>short</code>, <code>long</code>, <code>unsigned</code>.</p>
+            <p><strong>Пример объявления переменных:</strong></p>
+            <pre>
+int age = 20;
+double pi = 3.1415926535;
+char grade = 'A';
+bool isAlive = true;
+            </pre>
+        </section>
+
+        <section>
+            <h2>5. Математические и арифметические операции</h2>
+            <p>C++ поддерживает стандартные математические операции над числами:</p>
+            <ul>
+                <li><code>+</code> — сложение</li>
+                <li><code>-</code> — вычитание</li>
+                <li><code>*</code> — умножение</li>
+                <li><code>/</code> — деление (для целых чисел — целочисленное, для вещественных — с плавающей точкой)</li>
+                <li><code>%</code> — остаток от деления (только для целых типов)</li>
+            </ul>
+            <p><strong>Важные нюансы:</strong></p>
+            <pre>
+int a = 10, b = 3;
+int c = a / b;     // c = 3 (целочисленное деление, дробная часть отбрасывается)
+double d = a / b;  // d = 3.0 (т.к. оба операнда int, сначала целочисленное деление, затем преобразование)
+double e = 10.0 / 3; // e ≈ 3.33333
+
+int remainder = 10 % 3;  // remainder = 1
+            </pre>
+            <p>Для получения вещественного результата хотя бы один операнд должен быть вещественным.</p>
+
+            <h3>Составные операции присваивания</h3>
+            <pre>
+int x = 5;
+x += 3;   // эквивалентно x = x + 3;
+x -= 2;   // x = x - 2;
+x *= 4;   // x = x * 4;
+x /= 2;   // x = x / 2;
+x %= 3;   // x = x % 3;
+            </pre>
+
+            <h3>Инкремент и декремент</h3>
+            <pre>
+int counter = 0;
+counter++;    // постинкремент: увеличивает на 1
+++counter;    // преинкремент: увеличивает на 1
+counter--;    // постдекремент
+--counter;    // предекремент
+            </pre>
+            <p>Разница проявляется в выражениях: <code>int b = a++;</code> (сначала b получает старое a, затем a увеличивается) и <code>int b = ++a;</code> (сначала a увеличивается, затем присваивается b).</p>
+        </section>
+
+        <section>
+            <h2>6. Ввод и вывод данных (базовые функции)</h2>
+            <p>Для взаимодействия с пользователем используются потоки <code>std::cin</code> (ввод) и <code>std::cout</code> (вывод), определенные в заголовке <code>&lt;iostream&gt;</code>.</p>
+            <p><strong>Вывод в консоль:</strong></p>
+            <pre>
+std::cout &lt;&lt; "Значение pi = " &lt;&lt; 3.1415 &lt;&lt; std::endl;
+// std::endl — перевод строки и сброс буфера.
+// Можно использовать '\n' для перевода строки без сброса.
+            </pre>
+            <p><strong>Ввод с клавиатуры:</strong></p>
+            <pre>
+int number;
+std::cout &lt;&lt; "Введите целое число: ";
+std::cin &gt;&gt; number;
+std::cout &lt;&lt; "Вы ввели: " &lt;&lt; number &lt;&lt; std::endl;
+            </pre>
+            <p>Можно вводить несколько значений подряд:</p>
+            <pre>
+int a, b;
+std::cin &gt;&gt; a &gt;&gt; b;   // пользователь вводит два числа через пробел или Enter
+            </pre>
+        </section>
+
+        <section>
+            <h2>7. Функции в C++: определение и использование</h2>
+            <p>Функция — поименованный блок кода, который выполняет определенную задачу. Функции позволяют избежать дублирования, структурировать программу и реализовывать модульные алгоритмы.</p>
+            <p><strong>Синтаксис определения функции:</strong></p>
+            <pre>
+тип_возврата имя_функции(параметры) {
+    // тело функции
+    return значение;   // если тип_возврата не void
+}
+            </pre>
+            <p><strong>Пример: функция сложения двух чисел.</strong></p>
+            <pre>
+#include &lt;iostream&gt;
+
+// Объявление (прототип) функции
+int add(int x, int y);
+
+int main() {
+    int result = add(5, 7);
+    std::cout &lt;&lt; "Сумма: " &lt;&lt; result &lt;&lt; std::endl;
+    return 0;
+}
+
+// Определение функции
+int add(int x, int y) {
+    return x + y;
+}
+            </pre>
+            <p><strong>Функции без возврата (<code>void</code>):</strong></p>
+            <pre>
+void printGreeting() {
+    std::cout &lt;&lt; "Добро пожаловать в программу!" &lt;&lt; std::endl;
+    // return; — не обязателен, но может быть для досрочного выхода
+}
+            </pre>
+            <p><strong>Параметры по умолчанию:</strong></p>
+            <pre>
+void showMessage(std::string msg = "Привет, мир!") {
+    std::cout &lt;&lt; msg &lt;&lt; std::endl;
+}
+// Вызов: showMessage();       -> "Привет, мир!"
+//        showMessage("Hi!");  -> "Hi!"
+            </pre>
+        </section>
+
+        <section>
+            <h2>8. Математические функции из библиотеки &lt;cmath&gt;</h2>
+            <p>Для выполнения сложных математических вычислений используется заголовочный файл <code>&lt;cmath&gt;</code>. Основные функции:</p>
+            <ul>
+                <li><code>sqrt(x)</code> — квадратный корень из x.</li>
+                <li><code>pow(x, y)</code> — x в степени y.</li>
+                <li><code>abs(x)</code> — абсолютное значение для целых; <code>fabs(x)</code> — для вещественных.</li>
+                <li><code>sin(x), cos(x), tan(x)</code> — тригонометрические (аргумент в радианах).</li>
+                <li><code>exp(x)</code> — eˣ.</li>
+                <li><code>log(x)</code> — натуральный логарифм; <code>log10(x)</code> — десятичный.</li>
+                <li><code>ceil(x)</code> — округление вверх, <code>floor(x)</code> — округление вниз, <code>round(x)</code> — к ближайшему целому.</li>
+            </ul>
+            <p><strong>Пример использования:</strong></p>
+            <pre>
+#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+
+int main() {
+    double x = 16.0;
+    std::cout &lt;&lt; "sqrt(16) = " &lt;&lt; sqrt(x) &lt;&lt; std::endl;     // 4
+    std::cout &lt;&lt; "pow(2, 10) = " &lt;&lt; pow(2, 10) &lt;&lt; std::endl; // 1024
+    std::cout &lt;&lt; "sin(3.14159/2) = " &lt;&lt; sin(M_PI/2) &lt;&lt; std::endl; // около 1 (M_PI — константа пи)
+    std::cout &lt;&lt; "ceil(3.14) = " &lt;&lt; ceil(3.14) &lt;&lt; std::endl;      // 4
+    return 0;
+}
+            </pre>
+            <p><strong>Примечание:</strong> Константа <code>M_PI</code> может быть определена не во всех реализациях <code>&lt;cmath&gt;</code>; в таком случае можно определить свою: <code>const double PI = 3.141592653589793;</code>.</p>
+        </section>
+
+        <section>
+            <h2>9. Пространство имён <code>std</code> и директива <code>using</code></h2>
+            <p>Имена в стандартной библиотеке C++ находятся в пространстве имён <code>std</code> (<code>std::cout</code>, <code>std::cin</code>). Чтобы не писать <code>std::</code> каждый раз, можно использовать директиву:</p>
+            <pre>
+using namespace std;   // плохая практика в больших проектах, но удобна в учебных целях
+            </pre>
+            <p>Более безопасный способ — использовать отдельные элементы:</p>
+            <pre>
+using std::cout;
+using std::cin;
+using std::endl;
+            </pre>
+            <p>В лекциях для краткости иногда используется <code>using namespace std;</code>, но помните о возможных конфликтах имён.</p>
+        </section>
+
+        <section>
+    </div>
+
+
+    <div style='display: flex; flex-direction: row; gap: 10px; justify-content: space-between; padding: 20px; max-width: 140vh; margin: auto;'>
+        <button class="mainBtn" onclick="window.location.href='../practics/pract1.html';">практика</button>
+        <button class="mainBtn" onclick="window.location.href='../lec/lect2.html';">следующая лекция</button>
+    </div>
+
+</body>
+</html>

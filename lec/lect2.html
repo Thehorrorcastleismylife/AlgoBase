@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Условия в C++</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../style.css">
+    <link rel="icon" href="../images/logo-no-bg.png" type="../image/x-icon">
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <style>
+        h1, h2 {
+            color: #333333;
+            font-weight: 600;
+            align-self: center;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        code {
+            font-family: 'Courier New', monospace;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navBar">
+        <a href="../index.html"><img src="../Images/logo-no-bg.png" width="150" height="150"></a>
+        <div style="background-color: white; border-radius: 10px; padding: 5px 10px; display: flex; align-items: center; gap: 10px;">
+                <img src="../Images/Search.png" width="50" height="50" class="inline">
+                <span>Здесь есть все, что ты хочешь</span>
+            </div>
+        <button class="place-self-end">
+            <img src="../Images/user.png" width="100" height="100"> 
+        </button>
+    </nav>
+
+    <div style="padding: 20px; max-width: 140vh; margin: auto; font-size: 24px; gap: 6px; display: flex; flex-direction: column;">
+        <section>
+            <h2>1. Понятие условия в алгоритмах</h2>
+            <p>В любом алгоритме часто возникает необходимость <strong>выбрать</strong> один из нескольких возможных путей выполнения в зависимости от некоторых данных. Такие конструкции называются <strong>разветвляющимися</strong>. В языке C++ для реализации ветвлений используются условные операторы, основанные на вычислении логических выражений.</p>
+            <p>Любое условие в C++ — это выражение, которое принимает одно из двух значений:</p>
+            <ul>
+                <li><strong>true</strong> (истина, ненулевое значение) — условие выполняется;</li>
+                <li><strong>false</strong> (ложь, нулевое значение, 0) — условие не выполняется.</li>
+            </ul>
+            <p>В C++ нет отдельного булевого типа в классическом понимании (до стандарта C++99 использовался <code>int</code>), но начиная с C++ есть встроенный тип <code>bool</code> со значениями <code>true</code> и <code>false</code>. Однако в условных конструкциях по-прежнему любое ненулевое значение интерпретируется как <code>true</code>, а ноль — как <code>false</code>.</p>
+        </section>
+
+        <section>
+            <h2>2. Операторы сравнения и логические операторы</h2>
+            <p>Для построения условий используются следующие операторы сравнения (реляционные операторы):</p>
+            <ul>
+                <li><code>==</code> — равно (не путать с присваиванием <code>=</code>);</li>
+                <li><code>!=</code> — не равно;</li>
+                <li><code>&lt;</code> — меньше;</li>
+                <li><code>&gt;</code> — больше;</li>
+                <li><code>&lt;=</code> — меньше или равно;</li>
+                <li><code>&gt;=</code> — больше или равно.</li>
+            </ul>
+            <p><strong>Примеры простых условий:</strong></p>
+            <pre>
+int age = 18;
+bool isAdult = (age >= 18);   // true
+bool hasAccess = (age == 18); // true
+bool isChild = (age &lt; 12);     // false
+            </pre>
+
+            <p>Для объединения нескольких условий используются <strong>логические операторы</strong>:</p>
+            <ul>
+                <li><code>&&</code> — логическое И (конъюнкция). Истинно, если оба операнда истинны;</li>
+                <li><code>||</code> — логическое ИЛИ (дизъюнкция). Истинно, если хотя бы один операнд истинен;</li>
+                <li><code>!</code> — логическое НЕ (отрицание). Меняет истинность на противоположную.</li>
+            </ul>
+            <pre>
+int score = 85;
+bool hasBonus = (score > 80) && (score &lt;= 100);  // true
+bool canRetake = (score &lt; 60) || (score == 0);   // false
+bool isNotFailed = !(score &lt; 60);                // true
+            </pre>
+            <p><strong>Важно:</strong> В C++ логические операторы используют <strong>ленивые вычисления</strong> (short-circuit evaluation): для <code>&&</code> — если левый операнд ложен, правый не вычисляется; для <code>||</code> — если левый операнд истинен, правый не вычисляется.</p>
+        </section>
+
+        <section>
+            <h2>3. Оператор <code>if</code> (простое ветвление)</h2>
+            <p>Самый простой условный оператор — <code>if</code>. Он выполняет блок кода, только если условие истинно.</p>
+            <p><strong>Синтаксис:</strong></p>
+            <pre>
+if (условие) 
+    оператор;   // если один оператор, фигурные скобки необязательны, но лучше ставить
+
+// или с блоком:
+if (условие) {
+    // несколько операторов
+    // ...
+}
+            </pre>
+            <p><strong>Пример:</strong></p>
+            <pre>
+int number = 10;
+if (number > 0) {
+    std::cout &lt;&lt; "Число положительное." &lt;&lt; std::endl;
+}
+            </pre>
+            <p><em>Рекомендация:</em> всегда используйте фигурные скобки <code>{}</code> даже для одного оператора — это уменьшает вероятность ошибки при доработке кода.</p>
+        </section>
+
+        <section>
+            <h2>4. Конструкция <code>if-else</code> (двухветвевое ветвление)</h2>
+            <p>Когда нужно выбрать один из двух вариантов, используется пара <code>if-else</code>. Если условие истинно — выполняется блок <code>if</code>, иначе — блок <code>else</code>.</p>
+            <p><strong>Синтаксис:</strong></p>
+            <pre>
+if (условие) {
+    // блок, если условие истинно
+} else {
+    // блок, если условие ложно
+}
+            </pre>
+            <p><strong>Пример:</strong> проверка четности числа.</p>
+            <pre>
+int value = 7;
+if (value % 2 == 0) {
+    std::cout &lt;&lt; value &lt;&lt; " — четное число." &lt;&lt; std::endl;
+} else {
+    std::cout &lt;&lt; value &lt;&lt; " — нечетное число." &lt;&lt; std::endl;
+}
+            </pre>
+            <p>Конструкция <code>if-else</code> хорошо отражает алгоритмическую структуру «развилка» (полное ветвление).</p>
+        </section>
+
+        <section>
+            <h2>5. Вложенные условия и каскад <code>else if</code></h2>
+            <p>Когда вариантов выбора больше двух, можно использовать <strong>вложенные</strong> конструкции <code>if-else</code> или каскад <code>else if</code>. Последний вариант делает код более читаемым.</p>
+            <p><strong>Синтаксис каскада:</strong></p>
+            <pre>
+if (условие1) {
+    // действие 1
+} else if (условие2) {
+    // действие 2
+} else if (условие3) {
+    // действие 3
+} else {
+    // действие по умолчанию (необязательно)
+}
+            </pre>
+            <p>Условия проверяются сверху вниз. Как только найдено первое истинное условие, выполняется соответствующий блок, и вся конструкция завершается.</p>
+            <p><strong>Пример:</strong> оценка по баллам.</p>
+            <pre>
+int score = 85;
+if (score >= 90) {
+    std::cout &lt;&lt; "Отлично (A)" &lt;&lt; std::endl;
+} else if (score >= 75) {
+    std::cout &lt;&lt; "Хорошо (B)" &lt;&lt; std::endl;
+} else if (score >= 60) {
+    std::cout &lt;&lt; "Удовлетворительно (C)" &lt;&lt; std::endl;
+} else {
+    std::cout &lt;&lt; "Неудовлетворительно (F)" &lt;&lt; std::endl;
+}
+            </pre>
+            <p>Обратите внимание: порядок условий важен. Если бы первым стояло условие <code>score >= 60</code>, то для 85 баллов программа вывела бы «Удовлетворительно», что неверно.</p>
+        </section>
+
+        <section>
+            <h2>6. Тернарный условный оператор <code>? :</code></h2>
+            <p>Для простых ветвлений внутри выражений в C++ существует <strong>тернарный оператор</strong>. Он позволяет компактно записать условное присваивание.</p>
+            <p><strong>Синтаксис:</strong></p>
+            <pre>
+условие ? выражение_если_истина : выражение_если_ложь;
+            </pre>
+            <p><strong>Пример:</strong></p>
+            <pre>
+int a = 10, b = 20;
+int max = (a > b) ? a : b;   // max = 20
+std::cout &lt;&lt; "Максимум: " &lt;&lt; max &lt;&lt; std::endl;
+
+// Тернарный оператор можно вкладывать, но это ухудшает читаемость:
+int sign = (x > 0) ? 1 : ((x &lt; 0) ? -1 : 0);
+            </pre>
+            <p>Используйте тернарный оператор только для простых, коротких выражений. Для сложной логики предпочтительнее <code>if-else</code>.</p>
+        </section>
+
+        <section>
+            <h2>7. Оператор выбора <code>switch</code> (многовариантное ветвление)</h2>
+            <p>Если нужно сравнить одну переменную (или выражение) с множеством целочисленных констант, удобно использовать оператор <code>switch</code>. Он более эффективен и нагляден, чем длинный каскад <code>if-else if</code>.</p>
+            <p><strong>Синтаксис:</strong></p>
+            <pre>
+switch (выражение) {
+    case константа1:
+        // операторы
+        break;
+    case константа2:
+        // операторы
+        break;
+    // ... любое количество case
+    default:
+        // операторы, если ни один case не подошел
+        break;
+}
+            </pre>
+            <p><strong>Правила и особенности <code>switch</code>:</strong></p>
+            <ul>
+                <li>Выражение в <code>switch</code> должно быть целочисленного типа (<code>int</code>, <code>char</code>, <code>enum</code> и т.п.) или приводиться к целому.</li>
+                <li>Каждый <code>case</code> помечается константным выражением (константа времени компиляции).</li>
+                <li><code>break</code> выходит из <code>switch</code>. Если <code>break</code> отсутствует, происходит «проваливание» (fall-through) — выполнение продолжается в следующем <code>case</code>.</li>
+                <li>Блок <code>default</code> необязателен, выполняется, если ни одна метка не совпала.</li>
+            </ul>
+            <p><strong>Пример: дни недели</strong></p>
+            <pre>
+int day = 3;
+switch (day) {
+    case 1:
+        std::cout &lt;&lt; "Понедельник" &lt;&lt; std::endl;
+        break;
+    case 2:
+        std::cout &lt;&lt; "Вторник" &lt;&lt; std::endl;
+        break;
+    case 3:
+        std::cout &lt;&lt; "Среда" &lt;&lt; std::endl;
+        break;
+    case 4:
+        std::cout &lt;&lt; "Четверг" &lt;&lt; std::endl;
+        break;
+    case 5:
+        std::cout &lt;&lt; "Пятница" &lt;&lt; std::endl;
+        break;
+    case 6:
+    case 7:
+        std::cout &lt;&lt; "Выходной" &lt;&lt; std::endl;
+        break;
+    default:
+        std::cout &lt;&lt; "Некорректный день" &lt;&lt; std::endl;
+}
+            </pre>
+            <p>Обратите внимание на <code>case 6</code> и <code>case 7</code> — оба ведут к одному действию («Выходной»).</p>
+        </section>
+
+        <section>
+            <h2>8. Распространенные ошибки и советы</h2>
+            <ul>
+                <li><strong>Путаница между <code>=</code> и <code>==</code>:</strong> В условии <code>if (x = 5)</code> происходит присваивание, а не сравнение. Значение присваивания — 5 (не ноль), поэтому условие всегда истинно, что ведет к логической ошибке. Компиляторы часто выдают предупреждение, но лучше писать <code>if (x == 5)</code> или использовать стиль <code>if (5 == x)</code> (Yoda-условия) для защиты.</li>
+                <li><strong>Точка с запятой после <code>if</code>:</strong> <code>if (a > b);</code> — пустой оператор. Последующий блок выполнится всегда, независимо от условия.</li>
+                <li><strong>Забытые фигурные скобки:</strong> При добавлении второй строки в ветку <code>if</code> без скобок вторая строка уже не будет относиться к условию.</li>
+                <li><strong>Неполный охват в <code>switch</code>:</strong> Всегда продумывайте ветку <code>default</code> для обработки неожиданных значений.</li>
+                <li><strong>Сравнение вещественных чисел:</strong> Из-за погрешностей не следует сравнивать <code>double</code> или <code>float</code> на точное равенство. Используйте проверку разности по модулю с малым эпсилоном.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>9. Практический пример: решение квадратного уравнения</h2>
+            <p>Покажем комплексное использование условий для решения задачи: <strong>ax² + bx + c = 0</strong>. Алгоритм включает несколько ветвлений.</p>
+            <pre>
+#include &lt;iostream&gt;
+#include &lt;cmath&gt;
+
+int main() {
+    double a, b, c;
+    std::cout &lt;&lt; "Введите коэффициенты a, b, c: ";
+    std::cin &gt;&gt; a &gt;&gt; b &gt;&gt; c;
+
+    if (a == 0) {
+        // Линейное уравнение bx + c = 0
+        if (b == 0) {
+            if (c == 0) {
+                std::cout &lt;&lt; "Бесконечное количество решений." &lt;&lt; std::endl;
+            } else {
+                std::cout &lt;&lt; "Нет решений (противоречивое уравнение)." &lt;&lt; std::endl;
+            }
+        } else {
+            double x = -c / b;
+            std::cout &lt;&lt; "Линейное уравнение, корень: x = " &lt;&lt; x &lt;&lt; std::endl;
+        }
+    } else {
+        // Квадратное уравнение
+        double discriminant = b * b - 4 * a * c;
+        if (discriminant > 0) {
+            double x1 = (-b + std::sqrt(discriminant)) / (2 * a);
+            double x2 = (-b - std::sqrt(discriminant)) / (2 * a);
+            std::cout &lt;&lt; "Два различных корня: x1 = " &lt;&lt; x1 &lt;&lt; ", x2 = " &lt;&lt; x2 &lt;&lt; std::endl;
+        } else if (discriminant == 0) {
+            double x = -b / (2 * a);
+            std::cout &lt;&lt; "Один корень (два совпадающих): x = " &lt;&lt; x &lt;&lt; std::endl;
+        } else {
+            std::cout &lt;&lt; "Действительных корней нет (дискриминант отрицательный)." &lt;&lt; std::endl;
+        }
+    }
+    return 0;
+}
+            </pre>
+            <p>В этом примере используются вложенные <code>if</code>, каскад <code>else if</code>, сравнение чисел с плавающей точкой (здесь сравнение с нулем допустимо, так как коэффициенты вводятся точно).</p>
+        </section>
+
+        <section>
+            <h2>10. Резюме и ключевые выводы</h2>
+            <ul>
+                <li>Условия в C++ основаны на логических выражениях, которые принимают значения <code>true</code> или <code>false</code>.</li>
+                <li>Основные операторы ветвления: <code>if</code>, <code>if-else</code>, каскад <code>else if</code>, тернарный оператор <code>? :</code> и <code>switch</code>.</li>
+                <li>Всегда учитывайте порядок проверки условий в каскадах и не забывайте про <code>break</code> в <code>switch</code>.</li>
+                <li>Избегайте типичных ошибок: путаница присваивания и сравнения, лишние точки с запятой, отсутствие скобок.</li>
+                <li>Условные конструкции — основа любого нетривиального алгоритма. Правильное их применение делает программу гибкой и логичной.</li>
+            </ul>
+    </div>
+
+
+    <div style='display: flex; flex-direction: row; gap: 10px; justify-content: space-between; padding: 20px; max-width: 140vh; margin: auto;'>
+        <button class="mainBtn" onclick="window.location.href='../lec/lect1.html';">предыдущая лекция</button>
+        <button class="mainBtn" onclick="window.location.href='../practics/pract2.html';">практика</button>
+        <button class="mainBtn" onclick="window.location.href='../lec/lect3.html';">следующая лекция</button>
+    </div>
+
+</body>
+</html>
