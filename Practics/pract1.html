@@ -28,6 +28,47 @@
         code {
             font-family: 'Courier New', monospace;
         }
+         /* Middle Column */
+        .upload-area {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .upload-button {
+            background: #83C36A;
+            color: white;
+            border: 2px dashed #558B2F;
+            border-radius: 16px;
+            padding: 40px 30px;
+            text-align: center;
+            cursor: pointer;
+            width: 100%;
+            font-size: 18px;
+            line-height: 1.4;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .file-info {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+        }
+
+        .submit-btn {
+            background: #000000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -51,11 +92,49 @@
             <h2>задача 2: напишите программу, которая переводит часы в минуты.</h2>
             <p>Пусть пользователь вводит количество часов, а программа выводит эквивалентное количество минут.</p>
         </div>
-        <textarea name="solution" id="solution" placeholder="Введите решение здесь..." style="display: flex; border: 1px solid #ccc; border-radius: 4px;" rows="10"></textarea>
+        <div class="upload-area">
+                <label for="file-upload" class="upload-button">
+                    Нажмите для<br>выбора файла<br>отчета о практике
+                </label>
+                <input type="file" id="file-upload" accept="txt">
+                <div class="file-info" id="file-info">Файл не выбран</div>
+                <button id="sub" class="submit-btn" onclick>Отправить задание</button>
+            </div>
     </div>
         <div style='display: flex; flex-direction: row; gap: 10px; justify-content: space-between; padding: 20px; max-width: 140vh; margin: auto;'>
         <button class="mainBtn" onclick="window.location.href='../lec/lect1.html';">Лекция</button>
-        <button class="mainBtn">отправить</button>
+        
     </div>
+    <script>
+        const fileInput = document.getElementById("file-upload");
+        const fileInfo = document.getElementById("file-info");
+        const buttonSub = document.getElementById("sub");
+
+        fileInput.addEventListener("change", () => {
+            if (fileInput.files.length === 0) {
+                fileInfo.textContent = "Файл не выбран";
+            } else {
+                fileInfo.textContent = `Выбран файл: ${fileInput.files[0].name}`;
+            }
+        });
+
+        buttonSub.addEventListener("click", () => {
+        const formData = new FormData();
+        const file = fileInput.files[0];
+        
+        if (!file) {
+            alert("Выберите файл!");
+            return;
+        }
+        
+        formData.append('myfile', file);
+        
+            fetch('upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .catch(error => console.error("Ошибка:", error));
+    });
+    </script>
 </body>
 </html>
