@@ -190,9 +190,9 @@
                 <label for="file-upload" class="upload-button">
                     Нажмите для<br>выбора файла<br>отчета о практике
                 </label>
-                <input type="file" id="file-upload" accept="application/pdf,.doc,.docx">
+                <input type="file" id="file-upload" accept="txt">
                 <div class="file-info" id="file-info">Файл не выбран</div>
-                <button class="submit-btn" onclick>Отправить задание</button>
+                <button id="sub" class="submit-btn" onclick>Отправить задание</button>
             </div>
 
             <!-- Right Column -->
@@ -205,6 +205,7 @@
     <script>
         const fileInput = document.getElementById("file-upload");
         const fileInfo = document.getElementById("file-info");
+        const buttonSub = document.getElementById("sub");
 
         fileInput.addEventListener("change", () => {
             if (fileInput.files.length === 0) {
@@ -213,6 +214,25 @@
                 fileInfo.textContent = `Выбран файл: ${fileInput.files[0].name}`;
             }
         });
+
+        buttonSub.addEventListener("click", () => {
+        const formData = new FormData();
+        const file = fileInput.files[0];
+        
+        if (!file) {
+            alert("Выберите файл!");
+            return;
+        }
+        
+        formData.append('myfile', file);
+        
+            fetch('upload.php', {
+            method: 'POST',
+            body: formData
+        })
+        .catch(error => console.error("Ошибка:", error));
+    });
+
     </script>
 </body>
 </html>
